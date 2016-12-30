@@ -69,8 +69,6 @@ class Song: Object {
     {
         
         if let audioUrl = NSURL(string: "http://localhost:3000/directories/a162ece85e7b1b03128f138dfc63a036196c07b6c7e9ea54/\(self.audioUrl)") {
-            // create your documents folder url
-            let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first as NSURL?
             
             let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             let documentsDirectory: AnyObject = paths[0]
@@ -99,7 +97,7 @@ class Song: Object {
     
     func unload()
     {
-        
+        //perform simple delete
     }
 }
 

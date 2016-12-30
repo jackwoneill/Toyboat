@@ -13,18 +13,11 @@ enum State {
     case Expanded
 }
 
-/**
- Enum to define the number of cell expanded at time
- 
- - One:     One cell expanded at time.
- - Several: Several cells expanded at time.
- */
+
 enum NumberOfCellExpanded {
     case One
     case Several
 }
-
-
 
 struct Artist {
     var name: String

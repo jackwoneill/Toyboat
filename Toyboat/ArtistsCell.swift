@@ -26,7 +26,6 @@ class ArtistsCell: UITableViewCell,UITableViewDataSource,UITableViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         setUpTable()
     }
     

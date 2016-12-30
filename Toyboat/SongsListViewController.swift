@@ -58,19 +58,11 @@ class SongsListViewController: UIViewController, UITableViewDelegate, UITableVie
             name: "not_creating_playlist",
             object: nil)
         
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(SongsListViewController.expandPlayer),
-            name: "expand_player",
-            object: nil)
-        
         self.documentsDirectory = self.paths[0]
         self.userDir = NSURL(fileURLWithPath: documentsDirectory.stringByAppendingPathComponent("a@a.com"))
         
         super.viewDidLoad()
         
-        //syncWithRealm()
-
         self.cache = NSCache()
 
         // Do any additional setup after loading the view, typically from a nib.
@@ -131,7 +123,6 @@ class SongsListViewController: UIViewController, UITableViewDelegate, UITableVie
             let vc = segue.destinationViewController as? PlaylistViewController
             vc?.view.frame.size.height = UIScreen.mainScreen().bounds.height
             print(vc?.view.frame.size.height)
-//            /self.embeddedViewController = vc
         }
     }
     
@@ -140,8 +131,7 @@ class SongsListViewController: UIViewController, UITableViewDelegate, UITableVie
         {
             return false
         }
-        print("kek")
-        print(identifier)
+
         return true
         
     }
@@ -468,34 +458,8 @@ class SongsListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.finishPlaylistView.hidden = true
     }
     
-    func expandPlayer()
-    {
-        UIView.animateWithDuration(1.0, animations: {
-            if PlayerViewController.sharedInstance.expanded == false
-            {
-                self.playerContainerView.frame.origin.y = 0
-            }
-            else
-            {
-                self.playerContainerView.frame.origin.y =  UIScreen.mainScreen().bounds.height - (self.tabBarController?.tabBar.frame.height)! - 50
-                self.playerContainerView.frame = CGRect(x: 0,
-                    y: UIScreen.mainScreen().bounds.height - (self.tabBarController?.tabBar.frame.height)! - 50,
-                    width: UIScreen.mainScreen().bounds.width,
-                    height: UIScreen.mainScreen().bounds.height)
 
-            }
-            
-        })
-        self.playerContainerView.frame = CGRect(x: 0,
-                                                y: UIScreen.mainScreen().bounds.height - (self.tabBarController?.tabBar.frame.height)! - 50,
-                                                width: UIScreen.mainScreen().bounds.width,
-                                                height: UIScreen.mainScreen().bounds.height)
-    }
-    
-    
     @IBAction func didFinalizePlaylist(sender: AnyObject) {
-        
-        //CODE FROM CRYPTALERTER TO SHOW ALERT VIEW
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         guard appDelegate.newPlaylistIds.count > 0 else {

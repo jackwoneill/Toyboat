@@ -37,31 +37,18 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
     var selectedIds = Set<String>()
     
 
-    
     @IBOutlet weak var finishPlaylistButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var finishPlaylistView: UIView!
-    
-    
-    
-    //var total = 0
-    /// The identifier for the parent cells.
+
     let parentCellIdentifier = "ParentCell"
     
-    /// The identifier for the child cells.
     let childCellIdentifier = "ChildCell"
-    
-    
-    
-    /// The data source
-    
-    /// Define wether can exist several cells expanded or not.
+
     let numberOfCellsExpanded: NumberOfCellExpanded = .One
     
-    /// Constant to define the values for the tuple in case of not exist a cell expanded.
     let NoCellExpanded = (-1, -1)
     
-    /// The index of the last cell expanded and its parent.
     var lastCellExpanded : (Int, Int)!
     
     override func viewDidLoad() {
@@ -86,7 +73,8 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         
         // Now that we've told Realm how to handle the schema change, opening the file
         // will automatically perform the migration
-        let realm = try! Realm()
+        
+        //let realm = try! Realm()
         syncWithRealm()
         
         
@@ -135,10 +123,7 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
             self.creatingPlaylist = true
             self.tableView.allowsMultipleSelection = true
             
-            //ADD Subview at top
-            
             self.finishPlaylistView.hidden = false
-            
             return
         }
 
@@ -175,18 +160,9 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         return totalDic.keys.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let key = keys[section]
-//        let arr = keyArtistDic[key]?.allObjects
-//        //let arts = NSMutableSet(array: keyArtistDic[keys[section]]!.allObjects)
-//        var n = 0
-//        for i in arr! {
-//            n += (songsDic[i as! String]!.songs.count)
-//        }
-//        return n
-        
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return totalDic[keys[section]]!
-        
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
@@ -194,67 +170,43 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         return keys[section]
     }
     
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        //return collation.sectionIndexTitles
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]?
+    {
         return keys
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //self.setParentChildren("#")
+        
         var cell : UITableViewCell!
         
         let arts = keyArtistDic[keys[indexPath.section]]!.allObjects
-        print(arts)
 
-
-        
         let (parent, isParentCell, actualPosition) = self.findParent(indexPath.row, key: keys[indexPath.section])
         
         if !isParentCell {
             
             cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath)
-            let artist = arts[parent]
-            let songs = artist.songs
-            
-            
-            //fails below
+        
             let song = songsDic[arts[parent] as! String]!.songs[indexPath.row - actualPosition - 1]
-            //let song = songs![indexPath.row - actualPosition - 1] as! Song
-           
-            //print(songs![indexPath.row - actualPosition - 1])
-            //let song = songs[actualPosition]
-            print(indexPath.row)
-            print(song.title)
             
             cell.textLabel?.text = song.title
 
             if (selectedIds.contains(song.audioUrl))
             {
-                print(selectedIds)
                 dispatch_async(dispatch_get_main_queue()) { [unowned self] in
                     tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
                     
                 }
                 
             }
-            
-            
-            
 
-
-            //cell.backgroundColor = UIColor.greenColor()
         }
-        else {
-            print(parent - actualPosition)
-            print(arts[parent])
+        else
+        {
             let artist = songsDic[arts[parent] as! String]
-            //above
-            let songs = artist!.songs
-            //let song = songs[indexPath.row - actualPosition] as! Song
-            cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath)
-           
-            cell.textLabel!.text = artist!.name
             
+            cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath)
+            cell.textLabel!.text = artist!.name
         }
         
         return cell
@@ -264,16 +216,14 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
     
 
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         let arts = keyArtistDic[keys[indexPath.section]]!.allObjects
 
         let (parent, isParentCell, actualPosition) = self.findParent(indexPath.row, key: keys[indexPath.section])
         
-        
-        guard isParentCell else {
-            
-            
+        guard isParentCell else
+        {
             guard self.creatingPlaylist == false else
             {
                 let artist = songsDic[arts[parent] as! String]
@@ -293,22 +243,15 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
             
             Playlist.sharedInstance.genRandom(song, all: List(self.songs))
             
-            print(song)
-            
             var destinationUrl: NSURL = NSURL(string: "")!
             
             if (song.downloaded == true)
             {
-                
-                /* CLEAN THIS UP */
                 let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
                 let documentsDirectory: AnyObject = paths[0]
                 
-                /*CHANGE THE FILE PATH HERE*/
                 let userDir = NSURL(fileURLWithPath: documentsDirectory.stringByAppendingPathComponent("a@a.com"))
-                /* END CLEANUP */
                 
-                // your destination file url
                 destinationUrl = userDir.URLByAppendingPathComponent(song.audioUrl)
             }
             else
@@ -323,7 +266,6 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
             
             Player.sharedInstance.playWithURL(destinationUrl)
 
-            
             return
         }
         
@@ -362,11 +304,6 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
             let artist = arts?.allObjects[parent]
             let songs = artist?.songs
             let song = songs![indexPath.row - actualPosition - 1]
-            //let song = self.dataSource[parent].childs[indexPath.row - actualPosition - 1] as! Song
-            print(songs![indexPath.row - actualPosition - 1])
-            
-
-            
         
             guard self.selectedIds.contains(song.audioUrl) else
             {
@@ -395,12 +332,9 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    
-    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
     
     func syncWithRealm()
     {
@@ -414,17 +348,11 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
             for s: Song in sobjs {
                 artists.insert(s.artist)
                 
-                
-                print(s.artist.characters.first)
-
-                
                 if s.artist[s.artist.startIndex] >= "0" && s.artist[s.artist.startIndex] <= "9"
                 {
                     if(keyArtistDic["#"] == nil)
                     {
                         keyArtistDic["#"] = NSMutableSet()
-                        //songsDic["#"] = Artist(name: s.artist, songs: [], state: .Collapsed)
-
                     }
                     if (totalDic["#"] == nil)
                     {
@@ -453,8 +381,6 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
                     if(keyArtistDic["#"] == nil)
                     {
                         keyArtistDic["#"] = NSMutableSet()
-                        //songsDic["#"] = Artist(name: s.artist, songs: [], state: .Collapsed)
-                        
                     }
                     if (totalDic["#"] == nil)
                     {
@@ -475,22 +401,12 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
                     
                     continue
                 }
-                
-                //IF ARTIST NAME NOT BLANK AND DOESN'T BEGIN WITH A NUMBER
-                
-                //IF KEY DOES NOT EXIST
+
                 if (keyArtistDic["\(s.artist[s.artist.startIndex])"]) == nil
                 {
                     keyArtistDic["\(s.artist[s.artist.startIndex])"] = NSMutableSet()
-                    //self.setParentChildren(String(s.artist[s.artist.startIndex]))
 
                 }
-                
-                /* THIS COULD PROBABLY BE COMBINED WITH THE PREVIOUS IF STATEMENT, AS THEY WOULD PRESUMABLE BE TIED */
-
-                
-                
-                //IF SPECIFIC ARTIST DOES NOT EXIST YET
                 if (songsDic[s.artist] == nil)
                 {
                     songsDic[s.artist] = Artist(name: s.artist, songs: [], state: .Collapsed)
@@ -504,17 +420,13 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
                     }
                 }
                 
-                
                 keyArtistDic["\(s.artist[s.artist.startIndex])"]?.addObject(s.artist)
                 songsDic[s.artist]?.songs.append(s)
-                
-
             }
             keys = Array(keyArtistDic.keys)
             keys.sortInPlace({ $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending })
             if keys.count > 0
             {
-                //keys.removeFirst()
                 if (keyArtistDic["#"] != nil)
                 {
                     keys.append("#")
@@ -523,10 +435,7 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
             
             
         }
-        //self.setParentChildren()
         relDat()
-        
-        
     }
     
     func relDat()
@@ -545,17 +454,12 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         guard appDelegate.creatingPlaylist == false else {
             appDelegate.newPlaylistIds.unionInPlace(self.selectedIds)
             
-            
             return
         }
         
     }
     
-    
-    
     @IBAction func didFinalizePlaylist(sender: AnyObject) {
-        
-        //CODE FROM CRYPTALERTER TO SHOW ALERT VIEW
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         guard appDelegate.newPlaylistIds.count > 0 else {
@@ -571,12 +475,8 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         //REDIRECT TO VIEWCONTROLLER TO RE-ORDER SONGS/DELETE UNWANTED SONGS
         
         tabBarController?.selectedIndex = 2
-        //print(appDelegate.newPlaylistIds)
-        
         
         return
-        
-        
         
     }
     
@@ -586,7 +486,6 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.songsDic[artist]!.state = .Expanded
         
-        // position to start to insert rows.
         var insertPos = index + 1
         
         let indexPaths = (0..<children!.count).map { _ -> NSIndexPath in
@@ -602,11 +501,6 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    /**
-     Collapse the cell at the index specified.
-     
-     - parameter index: The index of the cell to collapse
-     */
     private func collapseSubItemsAtIndex(index : Int, parent: Int, artist: String, key: String, section: Int) {
         
         var indexPaths = [NSIndexPath]()
@@ -615,12 +509,10 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.totalDic[key]! -= numChildren
 
-        // update the state of the cell.
         self.songsDic[artist]!.state = .Collapsed
         
         guard index + 1 <= index + numChildren else { return }
         
-        // create an array of NSIndexPath with the selected positions
         indexPaths = (index + 1...index + numChildren).map { NSIndexPath(forRow: $0, inSection: section)}
         
         // remove the expanded cells
@@ -628,60 +520,7 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
 
     }
     
-    /**
-     Update the cells to expanded to collapsed state in case of allow severals cells expanded.
-     
-     - parameter parent: The parent of the cell
-     - parameter index:  The index of the cell.
-     */
-//    private func updateCells(parent: Int, index: Int, key: String, artist: String) {
-//        
-//        switch (self.songsDic[artist]!.state) {
-//            
-//        case .Expanded:
-//            self.collapseSubItemsAtIndex(index, parent: parent, artist: artist, key: key)
-//            self.lastCellExpanded = NoCellExpanded
-//            
-//        case .Collapsed:
-//            switch (numberOfCellsExpanded) {
-//            case .One:
-//                // exist one cell expanded previously
-//                if self.lastCellExpanded != NoCellExpanded {
-//                    
-//                    let (indexOfCellExpanded, parentOfCellExpanded) = self.lastCellExpanded
-//                    
-//                    self.collapseSubItemsAtIndex(indexOfCellExpanded, parent: parentOfCellExpanded, artist: artist, key: key)
-//                    
-//                    // cell tapped is below of previously expanded, then we need to update the index to expand.
-//                    if parent > parentOfCellExpanded {
-//                        //HEREHERfdsjkafldsafdajskl;fdjskal;fdjsakf;dasjkfdas;
-////                        let newIndex = index - self.parents[artists[parentOfCellExpanded]].childs.count
-////                        self.expandItemAtIndex(newIndex, parent: parent, key: key)
-////                        self.lastCellExpanded = (newIndex, parent)
-//                    }
-//                    else {
-//                        self.expandItemAtIndex(index, parent: parent, artist: artist, key: key)
-//                        self.lastCellExpanded = (index, parent)
-//                    }
-//                }
-//                else {
-//                    self.expandItemAtIndex(index, parent: parent, artist: artist, key: key)
-//                    self.lastCellExpanded = (index, parent)
-//                }
-//            case .Several:
-//                self.expandItemAtIndex(index, parent: parent, artist: artist, key: key)
-//            }
-//        }
-//    }
-    
-    /**
-     Find the parent position in the initial list, if the cell is parent and the actual position in the actual list.
-     
-     - parameter index: The index of the cell
-     
-     - returns: A tuple with the parent position, if it's a parent cell and the actual position righ now.
-     */
-    private func findParent(index : Int, key: String) -> (parent: Int, isParentCell: Bool, actualPosition: Int) {
+     private func findParent(index : Int, key: String) -> (parent: Int, isParentCell: Bool, actualPosition: Int) {
         
         var position = 0, parent = 0
         guard position < index else { return (parent, true, parent) }
@@ -728,14 +567,12 @@ class ArtistsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
 }
 
-
 extension ArtistsListViewController: UITabBarControllerDelegate {
-    
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
 
         
-        if let myController = viewController as? PlaylistViewController {
+        if viewController is PlaylistViewController {
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             guard appDelegate.creatingPlaylist == false else {
                 appDelegate.newPlaylistIds.unionInPlace(self.selectedIds)
@@ -743,7 +580,6 @@ extension ArtistsListViewController: UITabBarControllerDelegate {
                 
                 return true
             }
-            // do something
         }
         return true
     }

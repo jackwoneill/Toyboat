@@ -15,14 +15,11 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     var playlists: Array = [Playlist]()
-    //var artists = Set<String>()
     var playlistDic: [String: NSMutableArray] = [:]
     var keys: Array = [String]()
+    var songs: Array = [Song]()
     
     let collation = UILocalizedIndexedCollation.currentCollation()
-    
-    //var subSongs: Array = [Song]()
-    var songs: Array = [Song]()
     
     var task: NSURLSessionDownloadTask!
     var session: NSURLSession!
@@ -33,14 +30,8 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
     var finalizing = false
     
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var newPlaylistButton: UIButton!
-    
     @IBOutlet weak var finishPlaylistButton: UIButton!
-
-
-    //@IBOutlet weak var finalizePlaylistView: UIView!
-    //@IBOutlet weak var finalizePlaylistTableView: UITableView!
 
     override func viewDidLoad() {
 //        let config = Realm.Configuration(
@@ -88,25 +79,22 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        //self.syncWithRealm()
-        
-        
+    override func viewWillAppear(animated: Bool)
+    {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        guard appDelegate.creatingPlaylist == false else {
-            //self.finalizePlaylistView.hidden = false
-            //self.finalizePlaylistTableView.hidden = false
-            
+        
+        guard appDelegate.creatingPlaylist == false else
+        {
             let realm = try! Realm()
             
             self.songs.removeAll()
             
-            print(appDelegate.newPlaylistIds)
-            
-            for i in appDelegate.newPlaylistIds {
+            for i in appDelegate.newPlaylistIds
+            {
                 self.songs.append(realm.objectForPrimaryKey(Song.self, key: i)!)
             }
+            
             self.tableView.editing = true
             self.finalizing = true
             
@@ -115,23 +103,18 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
 
             self.tableView.reloadData()
             
-            
             return
         }
         
         super.viewWillAppear(animated)
     }
     
-    
-    //THIS IS LIKELY NEVER CALLED
     override func viewWillDisappear(animated: Bool) {
         if self.finalizing == true
         {
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.newPlaylistIds = Set(self.songs.map {$0.audioUrl})
         }
-    
-        
         super.viewWillDisappear(animated)
     }
     
@@ -190,15 +173,10 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.textLabel?.text = playlists[indexPath.row].title
 
-        
-        
-        
         return cell
     }
     
     // MARK: UITableViewDelegate
-    
-    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -224,12 +202,10 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
         
-        var itemToMove = songs[fromIndexPath.row]
+        let itemToMove = songs[fromIndexPath.row]
         songs.removeAtIndex(fromIndexPath.row)
         songs.insert(itemToMove, atIndex: toIndexPath.row)
     }
-    
-    
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -246,9 +222,6 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
             self.playlists = Array(plists)
             
             for p: Playlist in Array(plists) {
-                print(p.title)
-                
-                //print(s.artist.characters.first)
                 
                 if p.title[p.title.startIndex] >= "0" && p.title[p.title.startIndex] <= "9"
                 {
@@ -280,17 +253,13 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
                 keys.sortInPlace({ $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending })
                 if keys.count > 0
                 {
-                    //keys.removeFirst()
                     keys.append("#")
                 }
                 
             }
             
-            
         }
         relDat()
-        
-        
     }
     
     func relDat()
@@ -305,7 +274,6 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
             
         })
     }
-    
     
     @IBAction func newPlaylist(sender: AnyObject) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -325,7 +293,7 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
         
         let alertController = UIAlertController(title: "Name Your New Playlist", message: nil, preferredStyle: .Alert)
         let ok = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-            // Do whatever you want with inputTextField?.text
+            
             if(inputTextField!.text?.characters.count != 0)
             {
                 let str = String(inputTextField.text!)
@@ -342,18 +310,16 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
                 realm.add(newPlaylist)
                 try! realm.commitWrite()
 
-                
                 self.songs.removeAll()
                 self.finalizing = false
                 
-                var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.creatingPlaylist = false
                 appDelegate.newPlaylistIds.removeAll()
                 
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName("not_creating_playlist", object: nil)
                 }
-                
                 
                 self.syncWithRealm()
                 print(str)
@@ -372,8 +338,6 @@ class PlaylistViewController: UIViewController, UITableViewDelegate, UITableView
         presentViewController(alertController, animated: true, completion: nil)
         
     }
-
-
 
  }
 

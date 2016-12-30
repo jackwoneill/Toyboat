@@ -194,12 +194,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
         
         //ALSO CHECK SONGS THAT ARE NO LONGER LOCALLY DOWNLOADED
         
-        
-        
         let realm = try! Realm()
-        let docsDir = self.getDocumentsDirectory()
         
-        var songs = realm.objects(Song.self).filter("mpItem = true")
+        let songs = realm.objects(Song.self).filter("mpItem = true")
         
         let tbMpSet = Set(songs.map({$0.audioUrl}))
 
@@ -220,9 +217,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
         }
         try! realm.commitWrite()
 
-        
-        //GET DISPARITIES IN ICLOUD DOWNLOADING
-
     }
     
     //ONLY RUN FIRST TIME
@@ -236,8 +230,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
         
         let mediaItems = MPMediaQuery.songsQuery().items
         
-        let fm = NSFileManager.defaultManager()
-
         try! realm.beginWrite()
 
         for i in mediaItems!
@@ -248,18 +240,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
                 continue
             }
             
-            
-            /* DO A BETTER JOB OF CHECKING THIS, POSSIBLY HOW LOADLOCAL IS DONE?*/
-            
-            let personThatExists = realm.objectForPrimaryKey(Song.self, key: i.valueForProperty(MPMediaItemPropertyAssetURL)!.absoluteString)
+            let objThatExists = realm.objectForPrimaryKey(Song.self, key: i.valueForProperty(MPMediaItemPropertyAssetURL)!.absoluteString)
 
-            guard personThatExists == nil else
+            guard objThatExists == nil else
             {
                 continue
             }
             newSong.audioUrl = i.valueForProperty(MPMediaItemPropertyAssetURL)!.absoluteString
-            
-            /*END SHOULD DO BETTER*/
 
             newSong.id = 0
             guard i.valueForProperty(MPMediaItemPropertyTitle) != nil else
@@ -296,27 +283,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
                 newUrl = newUrl.stringByReplacingOccurrencesOfString(" ", withString: "")
                 newUrl = md5(string: newUrl) + ".png"
                 newSong.artworkUrl = newUrl
-                //newSong.artworkUrl = newUrl.stringByReplacingOccurrencesOfString(" ", withString: "")
-                
-                //dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let fn = newUrl
-                    let art = i.valueForProperty(MPMediaItemPropertyArtwork) as! MPMediaItemArtwork
-                    let v = art.imageWithSize( CGSizeMake (100, 100))
-                    if let data = UIImagePNGRepresentation(v!) {
-                        let filename = userPath.URLByAppendingPathComponent(fn)
-                        
-                        data.writeToFile(filename.path!, atomically: true)
 
-                        //sdata.writeToFile(filename, atomically: true)
-                        //data.writeToURL(filename, atomically: true)
-                    }
-                //})
+                let fn = newUrl
+                let art = i.valueForProperty(MPMediaItemPropertyArtwork) as! MPMediaItemArtwork
+                let v = art.imageWithSize( CGSizeMake (100, 100))
+                if let data = UIImagePNGRepresentation(v!) {
+                    let filename = userPath.URLByAppendingPathComponent(fn)
+                    
+                    data.writeToFile(filename.path!, atomically: true)
+
+                }
 
             }
             newSong.mpItem = true
             realm.add(newSong)
-
-            //print(newSong)
 
         }
         try! realm.commitWrite()
@@ -367,10 +347,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
                     return
                 }
             }
-            //let realm = self.newRealm()
-            
-            //print("responseString = \(responseString)")
-            
+    
             let jsonResponse = try!NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary
             print (jsonResponse)
             
@@ -397,11 +374,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
                     realm.add(newSong)
 
                     newSong.getArtwork()
-                    //print(object)
-                    
-                    //print(newSong)
-                    
-                    // Reading from or modifying a `RealmOptional` is done via the `value` property
                 }
                 try! realm.commitWrite()
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -413,9 +385,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarDelegate {
         }
         
         task.resume()
-        
-        //try!clearChanges()
-        
+                
     }
     
     

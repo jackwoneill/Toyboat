@@ -17,41 +17,6 @@ class Playlist: Object
     dynamic var currIndex : Int = 0
     dynamic var title: String = ""
     
-    
-    /* Overload subscript operator such that it applies to a circular list */
-//    subscript(song: Int) -> Song {
-//        get {
-//            guard song < self.list.count else
-//            {
-//                var s = song
-//                while s < self.list.count
-//                {
-//                    s -= self.list.count
-//                }
-//                return self[s]
-//            }
-//            return self[song]
-//        }
-//        
-//        set {
-//            guard song < self.list.count else
-//            {
-//                var s = song
-//                while s < self.list.count
-//                {
-//                    s -= self.list.count
-//                }
-//                self[s] = newValue
-//                return
-//            }
-//            self[song] = newValue
-//        }
-//    }
-    
-    /**
-     Returns the next song object in the playlist. If the current song is the last object in the playlist, the first song in the playlist is returned.
-     */
-    
     func next() -> Song
     {
         
@@ -107,12 +72,8 @@ class Playlist: Object
     
 }
 
-
-
 extension MutableCollectionType where Index == Int {
-    /// Shuffle the elements of `self` in-place.
     mutating func shuffleInPlace() {
-        // empty and single-element collections don't shuffle
         if count < 2 { return }
         
         for i in 0..<count - 1 {
