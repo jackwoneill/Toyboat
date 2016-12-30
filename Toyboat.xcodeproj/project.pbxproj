@@ -7,14 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043317511D2DE86A009C6C7C /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043317501D2DE86A009C6C7C /* PlaylistViewController.swift */; };
+		044484D41D260E6B0026242A /* ArtistsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044484D31D260E6B0026242A /* ArtistsListViewController.swift */; };
+		044484D61D28B88D0026242A /* ArtistsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044484D51D28B88D0026242A /* ArtistsCell.swift */; };
+		044484D81D2A02600026242A /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044484D71D2A02600026242A /* Parent.swift */; };
+		045BA3721D2ABC5C001A62ED /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045BA3711D2ABC5C001A62ED /* Player.swift */; };
+		045BA3741D2AE9FF001A62ED /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045BA3731D2AE9FF001A62ED /* Playlist.swift */; };
 		0466EAF71D1E30B100EA5B2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466EAF61D1E30B100EA5B2D /* AppDelegate.swift */; };
-		0466EAF91D1E30B100EA5B2D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466EAF81D1E30B100EA5B2D /* MasterViewController.swift */; };
-		0466EAFB1D1E30B100EA5B2D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466EAFA1D1E30B100EA5B2D /* DetailViewController.swift */; };
+		0466EAF91D1E30B100EA5B2D /* SongsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466EAF81D1E30B100EA5B2D /* SongsListViewController.swift */; };
 		0466EAFE1D1E30B100EA5B2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0466EAFC1D1E30B100EA5B2D /* Main.storyboard */; };
 		0466EB001D1E30B100EA5B2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0466EAFF1D1E30B100EA5B2D /* Assets.xcassets */; };
 		0466EB031D1E30B100EA5B2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0466EB011D1E30B100EA5B2D /* LaunchScreen.storyboard */; };
 		0466EB0E1D1E30B100EA5B2D /* ToyboatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466EB0D1D1E30B100EA5B2D /* ToyboatTests.swift */; };
 		0466EB191D1E30B100EA5B2D /* ToyboatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466EB181D1E30B100EA5B2D /* ToyboatUITests.swift */; };
+		0466EB281D1E30F600EA5B2D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0466EB261D1E30F600EA5B2D /* Realm.framework */; };
+		0466EB291D1E30F600EA5B2D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0466EB261D1E30F600EA5B2D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0466EB2A1D1E30F600EA5B2D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0466EB271D1E30F600EA5B2D /* RealmSwift.framework */; };
+		0466EB2B1D1E30F600EA5B2D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0466EB271D1E30F600EA5B2D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0478C2EA1D202C4400D37F85 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478C2E91D202C4400D37F85 /* KeychainWrapper.swift */; };
+		0478C2EC1D202C6100D37F85 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478C2EB1D202C6100D37F85 /* Song.swift */; };
+		04866B551D25EE600039BBDE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04866B541D25EE600039BBDE /* Reachability.swift */; };
+		049780AE1D3A9C2E00B9B733 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049780AD1D3A9C2E00B9B733 /* Artist.swift */; };
+		049FE6421D221096007CCD1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049FE6411D221096007CCD1B /* AVFoundation.framework */; };
+		04DC5C5A1D3DBCEF00D18925 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC5C591D3DBCEF00D18925 /* PlayerViewController.swift */; };
+		04DC5C5C1D3DCFA000D18925 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC5C5B1D3DCFA000D18925 /* AlbumsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,11 +50,32 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0466EB2C1D1E30F600EA5B2D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0466EB2B1D1E30F600EA5B2D /* RealmSwift.framework in Embed Frameworks */,
+				0466EB291D1E30F600EA5B2D /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		041940591D43D8D000C31DB4 /* Toyboat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Toyboat-Bridging-Header.h"; sourceTree = "<group>"; };
+		043317501D2DE86A009C6C7C /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		044484D31D260E6B0026242A /* ArtistsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsListViewController.swift; sourceTree = "<group>"; };
+		044484D51D28B88D0026242A /* ArtistsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsCell.swift; sourceTree = "<group>"; };
+		044484D71D2A02600026242A /* Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parent.swift; sourceTree = "<group>"; };
+		045BA3711D2ABC5C001A62ED /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		045BA3731D2AE9FF001A62ED /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		0466EAF31D1E30B100EA5B2D /* Toyboat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toyboat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0466EAF61D1E30B100EA5B2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0466EAF81D1E30B100EA5B2D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		0466EAFA1D1E30B100EA5B2D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0466EAF81D1E30B100EA5B2D /* SongsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsListViewController.swift; sourceTree = "<group>"; };
 		0466EAFD1D1E30B100EA5B2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0466EAFF1D1E30B100EA5B2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0466EB021D1E30B100EA5B2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +86,15 @@
 		0466EB141D1E30B100EA5B2D /* ToyboatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToyboatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0466EB181D1E30B100EA5B2D /* ToyboatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyboatUITests.swift; sourceTree = "<group>"; };
 		0466EB1A1D1E30B100EA5B2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0466EB261D1E30F600EA5B2D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		0466EB271D1E30F600EA5B2D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		0478C2E91D202C4400D37F85 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		0478C2EB1D202C6100D37F85 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		04866B541D25EE600039BBDE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		049780AD1D3A9C2E00B9B733 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
+		049FE6411D221096007CCD1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		04DC5C591D3DBCEF00D18925 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		04DC5C5B1D3DCFA000D18925 /* AlbumsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlbumsViewController.swift; path = ../AlbumsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0466EB2A1D1E30F600EA5B2D /* RealmSwift.framework in Frameworks */,
+				0466EB281D1E30F600EA5B2D /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049FE6421D221096007CCD1B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +128,14 @@
 		0466EAEA1D1E30B100EA5B2D = {
 			isa = PBXGroup;
 			children = (
+				049FE6411D221096007CCD1B /* AVFoundation.framework */,
+				0466EB261D1E30F600EA5B2D /* Realm.framework */,
+				0466EB271D1E30F600EA5B2D /* RealmSwift.framework */,
 				0466EAF51D1E30B100EA5B2D /* Toyboat */,
 				0466EB0C1D1E30B100EA5B2D /* ToyboatTests */,
 				0466EB171D1E30B100EA5B2D /* ToyboatUITests */,
 				0466EAF41D1E30B100EA5B2D /* Products */,
+				041940591D43D8D000C31DB4 /* Toyboat-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +152,24 @@
 		0466EAF51D1E30B100EA5B2D /* Toyboat */ = {
 			isa = PBXGroup;
 			children = (
+				04DC5C5B1D3DCFA000D18925 /* AlbumsViewController.swift */,
 				0466EAF61D1E30B100EA5B2D /* AppDelegate.swift */,
-				0466EAF81D1E30B100EA5B2D /* MasterViewController.swift */,
-				0466EAFA1D1E30B100EA5B2D /* DetailViewController.swift */,
+				0478C2E91D202C4400D37F85 /* KeychainWrapper.swift */,
+				0466EAF81D1E30B100EA5B2D /* SongsListViewController.swift */,
+				044484D31D260E6B0026242A /* ArtistsListViewController.swift */,
+				043317501D2DE86A009C6C7C /* PlaylistViewController.swift */,
+				044484D51D28B88D0026242A /* ArtistsCell.swift */,
 				0466EAFC1D1E30B100EA5B2D /* Main.storyboard */,
 				0466EAFF1D1E30B100EA5B2D /* Assets.xcassets */,
 				0466EB011D1E30B100EA5B2D /* LaunchScreen.storyboard */,
 				0466EB041D1E30B100EA5B2D /* Info.plist */,
+				04866B541D25EE600039BBDE /* Reachability.swift */,
+				044484D71D2A02600026242A /* Parent.swift */,
+				045BA3711D2ABC5C001A62ED /* Player.swift */,
+				0478C2EB1D202C6100D37F85 /* Song.swift */,
+				045BA3731D2AE9FF001A62ED /* Playlist.swift */,
+				049780AD1D3A9C2E00B9B733 /* Artist.swift */,
+				04DC5C591D3DBCEF00D18925 /* PlayerViewController.swift */,
 			);
 			path = Toyboat;
 			sourceTree = "<group>";
@@ -138,6 +202,7 @@
 				0466EAEF1D1E30B100EA5B2D /* Sources */,
 				0466EAF01D1E30B100EA5B2D /* Frameworks */,
 				0466EAF11D1E30B100EA5B2D /* Resources */,
+				0466EB2C1D1E30F600EA5B2D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,6 +220,7 @@
 				0466EB051D1E30B100EA5B2D /* Sources */,
 				0466EB061D1E30B100EA5B2D /* Frameworks */,
 				0466EB071D1E30B100EA5B2D /* Resources */,
+				0466EB2D1D1E317600EA5B2D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -190,11 +256,13 @@
 		0466EAEB1D1E30B100EA5B2D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Jack O'Neill";
 				TargetAttributes = {
 					0466EAF21D1E30B100EA5B2D = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = BS3H4G789L;
 					};
 					0466EB081D1E30B100EA5B2D = {
 						CreatedOnToolsVersion = 7.1;
@@ -253,14 +321,41 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0466EB2D1D1E317600EA5B2D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0466EAEF1D1E30B100EA5B2D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0466EAFB1D1E30B100EA5B2D /* DetailViewController.swift in Sources */,
-				0466EAF91D1E30B100EA5B2D /* MasterViewController.swift in Sources */,
+				0478C2EA1D202C4400D37F85 /* KeychainWrapper.swift in Sources */,
+				044484D41D260E6B0026242A /* ArtistsListViewController.swift in Sources */,
+				04DC5C5A1D3DBCEF00D18925 /* PlayerViewController.swift in Sources */,
+				04866B551D25EE600039BBDE /* Reachability.swift in Sources */,
+				0466EAF91D1E30B100EA5B2D /* SongsListViewController.swift in Sources */,
 				0466EAF71D1E30B100EA5B2D /* AppDelegate.swift in Sources */,
+				044484D61D28B88D0026242A /* ArtistsCell.swift in Sources */,
+				0478C2EC1D202C6100D37F85 /* Song.swift in Sources */,
+				043317511D2DE86A009C6C7C /* PlaylistViewController.swift in Sources */,
+				049780AE1D3A9C2E00B9B733 /* Artist.swift in Sources */,
+				045BA3741D2AE9FF001A62ED /* Playlist.swift in Sources */,
+				045BA3721D2ABC5C001A62ED /* Player.swift in Sources */,
+				044484D81D2A02600026242A /* Parent.swift in Sources */,
+				04DC5C5C1D3DCFA000D18925 /* AlbumsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,10 +497,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Toyboat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JO.Toyboat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Toyboat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -413,10 +518,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Toyboat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JO.Toyboat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Toyboat-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -424,6 +538,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				INFOPLIST_FILE = ToyboatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JO.ToyboatTests;
@@ -487,6 +602,7 @@
 				0466EB1F1D1E30B100EA5B2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0466EB201D1E30B100EA5B2D /* Build configuration list for PBXNativeTarget "ToyboatTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +611,7 @@
 				0466EB221D1E30B100EA5B2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0466EB231D1E30B100EA5B2D /* Build configuration list for PBXNativeTarget "ToyboatUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +620,7 @@
 				0466EB251D1E30B100EA5B2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
